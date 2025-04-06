@@ -1,11 +1,21 @@
 const express = require('express')
 const app = express()
+const saudacao = require('./saudacaoMid')
 const bodyParser = require('body-parser')
 
+app.use(saudacao('Jorge'))
+
 // Atende a todas as requisições independente da URL
-// app.use((req, res) => {
+// app.use((req, res, next) => {
 //   res.send('Iniciando...')
-//
+//   next()
+// })
+
+// Parametro NEXT é uma função que permite dar sequencia a requisições diferente realizadas na mesma URL
+
+// app.use((req, res, next) => {
+//   res.send('Ok.')
+//   next()
 // })
 
 // Funciona de Forma Similar ao METODO use
