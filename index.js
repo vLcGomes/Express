@@ -2,8 +2,17 @@ const express = require('express')
 const app = express()
 const saudacao = require('./saudacaoMid')
 const bodyParser = require('body-parser')
+const clientAPI = require('./api/client')
+require('./api/product')(app, 'com param!')
 
 app.use(saudacao('Jorge'))
+
+app.use(bodyParser.text())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true}))
+
+app.post('/client', clientAPI.salvar)
+app.get('/client', clientAPI.obter)
 
 // Atende a todas as requisições independente da URL
 // app.use((req, res, next) => {
@@ -84,6 +93,10 @@ app.post('/user', (req, res) => {
   req.on('end', function() {
     res.send(reqBody)
   })
+})
+
+app.post('/user2', (req, res) => {
+  res.send(req.body)
 })
 
 
