@@ -38,6 +38,11 @@ app.get('/usuario/1', (req, res) => {
   })
 })
 
+    // Requisição utilizando query na URL
+app.get('/users', (req, res) => {
+  res.send(`Cliente relatório: completo = ${req.query.completo} ano = ${req.query.ano}`)
+})
+
 app.get('/usuario/:id', (req, res) => {
   res.send(`<h1>Isso é um H1 HTML para o id ${req.params.id}</h1>`)
 })
@@ -67,5 +72,19 @@ app.get('/usuarios', (req, res) => {
     }
   ])
 })
+
+// Lendo dados da Requisição
+
+app.post('/user', (req, res) => {
+  let reqBody = ''
+  req.on('data', function(text) {
+    reqBody += text
+  })
+
+  req.on('end', function() {
+    res.send(reqBody)
+  })
+})
+
 
 app.listen(3000, () => console.log('Executando...'))
